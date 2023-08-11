@@ -1,9 +1,8 @@
 package com.digitalmenu.digitalmenuapi.entities;
 
+import com.digitalmenu.digitalmenuapi.dtos.DigitalMenuRequestDTO;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,9 +22,16 @@ public class DigitalMenu {
     private String image;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private List<String> ingredients = new ArrayList<>();
+    private String ingredients;
 
     public DigitalMenu() {
+    }
+
+    public DigitalMenu(DigitalMenuRequestDTO requestDTO) {
+        this.name = requestDTO.name();
+        this.price = requestDTO.price();
+        this.image = requestDTO.image();
+        this.ingredients = requestDTO.ingredients();
     }
 
     public String getId() {
@@ -60,11 +66,11 @@ public class DigitalMenu {
         this.image = image;
     }
 
-    public List<String> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(String ingredients) {
        this.ingredients = ingredients;
     }
 
