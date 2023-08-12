@@ -28,4 +28,16 @@ public class DigitalMenuController {
     public ResponseEntity<DigitalMenuResponseDTO> saveDigitalMenu(@RequestBody DigitalMenuRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(digitalMenuService.save(requestDTO));
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DigitalMenuResponseDTO> updateDigitalMenu(@PathVariable String id,
+                                                                    @RequestBody DigitalMenuRequestDTO requestDTO) {
+        return ResponseEntity.ok().body(digitalMenuService.update(id, requestDTO));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteDigitalMenu(@PathVariable String id) {
+        digitalMenuService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
