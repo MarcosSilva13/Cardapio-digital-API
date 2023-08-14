@@ -3,6 +3,7 @@ package com.digitalmenu.digitalmenuapi.services;
 import com.digitalmenu.digitalmenuapi.dtos.DigitalMenuRequestDTO;
 import com.digitalmenu.digitalmenuapi.dtos.DigitalMenuResponseDTO;
 import com.digitalmenu.digitalmenuapi.entities.DigitalMenu;
+import com.digitalmenu.digitalmenuapi.exceptions.ItemNotFoundException;
 import com.digitalmenu.digitalmenuapi.repositories.DigitalMenuRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,6 @@ public class DigitalMenuService {
     }
 
     private DigitalMenu find(String id) {
-        return digitalMenuRepository.findById(id).orElseThrow(() -> new RuntimeException("Item não encontrado!"));
+        return digitalMenuRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item não encontrado!"));
     }
 }
