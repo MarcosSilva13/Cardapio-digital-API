@@ -3,6 +3,7 @@ package com.digitalmenu.digitalmenuapi.controllers;
 import com.digitalmenu.digitalmenuapi.dtos.DigitalMenuRequestDTO;
 import com.digitalmenu.digitalmenuapi.dtos.DigitalMenuResponseDTO;
 import com.digitalmenu.digitalmenuapi.services.DigitalMenuService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,13 @@ public class DigitalMenuController {
     }
 
     @PostMapping
-    public ResponseEntity<DigitalMenuResponseDTO> saveDigitalMenu(@RequestBody DigitalMenuRequestDTO requestDTO) {
+    public ResponseEntity<DigitalMenuResponseDTO> saveDigitalMenu(@RequestBody @Valid DigitalMenuRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(digitalMenuService.save(requestDTO));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<DigitalMenuResponseDTO> updateDigitalMenu(@PathVariable String id,
-                                                                    @RequestBody DigitalMenuRequestDTO requestDTO) {
+                                                                    @RequestBody @Valid DigitalMenuRequestDTO requestDTO) {
         return ResponseEntity.ok().body(digitalMenuService.update(id, requestDTO));
     }
 
