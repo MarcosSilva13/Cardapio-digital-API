@@ -14,6 +14,9 @@ public record DigitalMenuRequestDTO(
         String image,
 
         @NotBlank(message = "Campo ingredientes não pode ser vazio ou nulo.")
-        String ingredients) {
+        String ingredients,
+
+        @NotBlank(message = "Campo categoria não pode ser vazio ou nulo.")
+        String categoryId) {
 
 }

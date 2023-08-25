@@ -24,6 +24,18 @@ public class DigitalMenu {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String ingredients;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public DigitalMenu() {
     }
 
@@ -32,6 +44,7 @@ public class DigitalMenu {
         this.price = requestDTO.price();
         this.image = requestDTO.image();
         this.ingredients = requestDTO.ingredients();
+        this.category = new Category(requestDTO.categoryId());
     }
 
     public String getId() {
