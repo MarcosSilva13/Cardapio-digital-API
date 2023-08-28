@@ -29,6 +29,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(details.getStatus()).body(details);
     }
 
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ExceptionDetails> categoryNotFoundExceptionHandler(CategoryNotFoundException ex,
+                                                                             HttpServletRequest request) {
+        details.setTimestamp(LocalDateTime.now());
+        details.setStatus(HttpStatus.NOT_FOUND.value());
+        details.setError(HttpStatus.NOT_FOUND.name());
+        details.setMessage(ex.getMessage());
+        details.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(details.getStatus()).body(details);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationExceptionDetails> methodArgumentNotValidExceptionHandler(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
