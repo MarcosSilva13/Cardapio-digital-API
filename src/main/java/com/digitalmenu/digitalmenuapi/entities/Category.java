@@ -3,6 +3,8 @@ package com.digitalmenu.digitalmenuapi.entities;
 import com.digitalmenu.digitalmenuapi.dtos.CategoryRequestDTO;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,9 @@ public class Category {
 
     @Column(nullable = false, length = 50)
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    private List<Item> items = new ArrayList<>();
 
     public Category() {
     }
