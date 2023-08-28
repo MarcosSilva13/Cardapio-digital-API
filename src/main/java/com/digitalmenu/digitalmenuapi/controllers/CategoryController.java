@@ -29,4 +29,17 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> saveCategory(@RequestBody @Valid CategoryRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(requestDTO));
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoryResponseDTO> updateCategory(@PathVariable String id,
+                                                              @RequestBody @Valid CategoryRequestDTO requestDTO) {
+        return ResponseEntity.ok().body(categoryService.update(id,requestDTO));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable String id) {
+        categoryService.delete(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
