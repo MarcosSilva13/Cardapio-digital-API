@@ -1,13 +1,13 @@
 package com.digitalmenu.digitalmenuapi.entities;
 
-import com.digitalmenu.digitalmenuapi.dtos.DigitalMenuRequestDTO;
+import com.digitalmenu.digitalmenuapi.dtos.ItemRequestDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_digital_menu")
-public class DigitalMenu {
+@Table(name = "tb_item")
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -36,10 +36,10 @@ public class DigitalMenu {
         this.category = category;
     }
 
-    public DigitalMenu() {
+    public Item() {
     }
 
-    public DigitalMenu(DigitalMenuRequestDTO requestDTO) {
+    public Item(ItemRequestDTO requestDTO) {
         this.name = requestDTO.name();
         this.price = requestDTO.price();
         this.image = requestDTO.image();
@@ -90,14 +90,13 @@ public class DigitalMenu {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DigitalMenu that = (DigitalMenu) o;
-        return Objects.equals(name, that.name) && Objects.equals(price, that.price)
-                && Objects.equals(image, that.image) && Objects.equals(ingredients, that.ingredients);
+        if (!(o instanceof Item item)) return false;
+        return Objects.equals(id, item.id) && Objects.equals(name, item.name) && Objects.equals(price, item.price)
+                && Objects.equals(image, item.image) && Objects.equals(ingredients, item.ingredients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, image, ingredients);
+        return Objects.hash(id, name, price, image, ingredients);
     }
 }

@@ -3,7 +3,7 @@ package com.digitalmenu.digitalmenuapi.dtos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DigitalMenuRequestDTO(
+public record ItemRequestDTO(
         @NotBlank(message = "Campo nome não pode ser vazio ou nulo.")
         String name,
 
