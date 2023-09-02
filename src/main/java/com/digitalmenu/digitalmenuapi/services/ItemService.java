@@ -23,7 +23,7 @@ public class ItemService {
 
     @Transactional(readOnly = true)
     public List<ItemResponseDTO> getAll() {
-        return itemRepository.findAll()
+        return itemRepository.searchAll()
                 .stream()
                 .map(ItemResponseDTO::new)
                 .toList();
