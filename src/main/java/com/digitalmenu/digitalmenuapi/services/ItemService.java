@@ -4,7 +4,9 @@ import com.digitalmenu.digitalmenuapi.dtos.ItemRequestDTO;
 import com.digitalmenu.digitalmenuapi.dtos.ItemResponseDTO;
 import com.digitalmenu.digitalmenuapi.entities.Category;
 import com.digitalmenu.digitalmenuapi.entities.Item;
+import com.digitalmenu.digitalmenuapi.exceptions.CategoryNotFoundException;
 import com.digitalmenu.digitalmenuapi.exceptions.ItemNotFoundException;
+import com.digitalmenu.digitalmenuapi.repositories.CategoryRepository;
 import com.digitalmenu.digitalmenuapi.repositories.ItemRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,11 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, CategoryRepository categoryRepository) {
         this.itemRepository = itemRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Transactional(readOnly = true)
@@ -31,6 +35,8 @@ public class ItemService {
 
     @Transactional
     public ItemResponseDTO save(ItemRequestDTO requestDTO) {
+        this.checkValidCategory(requestDTO.categoryId());
+
         Item item = new Item(requestDTO);
 
         return new ItemResponseDTO(itemRepository.save(item));
@@ -38,6 +44,8 @@ public class ItemService {
 
     @Transactional
     public ItemResponseDTO update(String id, ItemRequestDTO requestDTO) {
+        this.checkValidCategory(requestDTO.categoryId());
+
         Item item = this.find(id);
 
         item.setCategory(new Category(requestDTO.categoryId()));
@@ -56,5 +64,10 @@ public class ItemService {
 
     private Item find(String id) {
         return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item não encontrado!"));
+    }
+
+    private void checkValidCategory(String categoryId) {
+        categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException("Categoria não encontrada."));
     }
 }
