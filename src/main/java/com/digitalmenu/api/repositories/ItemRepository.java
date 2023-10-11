@@ -1,6 +1,6 @@
-package com.digitalmenu.digitalmenuapi.repositories;
+package com.digitalmenu.api.repositories;
 
-import com.digitalmenu.digitalmenuapi.entities.Item;
+import com.digitalmenu.api.entities.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

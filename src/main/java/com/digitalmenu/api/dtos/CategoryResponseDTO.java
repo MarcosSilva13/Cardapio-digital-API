@@ -1,6 +1,6 @@
-package com.digitalmenu.digitalmenuapi.dtos;
+package com.digitalmenu.api.dtos;
 
-import com.digitalmenu.digitalmenuapi.entities.Category;
+import com.digitalmenu.api.entities.Category;
 
 public record CategoryResponseDTO(String id, String name) {
 

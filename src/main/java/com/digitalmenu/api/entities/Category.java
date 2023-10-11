@@ -1,6 +1,6 @@
-package com.digitalmenu.digitalmenuapi.entities;
+package com.digitalmenu.api.entities;
 
-import com.digitalmenu.digitalmenuapi.dtos.CategoryRequestDTO;
+import com.digitalmenu.api.dtos.CategoryRequestDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

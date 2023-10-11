@@ -1,13 +1,13 @@
-package com.digitalmenu.digitalmenuapi.services;
+package com.digitalmenu.api.services;
 
-import com.digitalmenu.digitalmenuapi.dtos.ItemRequestDTO;
-import com.digitalmenu.digitalmenuapi.dtos.ItemResponseDTO;
-import com.digitalmenu.digitalmenuapi.entities.Category;
-import com.digitalmenu.digitalmenuapi.entities.Item;
-import com.digitalmenu.digitalmenuapi.exceptions.CategoryNotFoundException;
-import com.digitalmenu.digitalmenuapi.exceptions.ItemNotFoundException;
-import com.digitalmenu.digitalmenuapi.repositories.CategoryRepository;
-import com.digitalmenu.digitalmenuapi.repositories.ItemRepository;
+import com.digitalmenu.api.dtos.ItemRequestDTO;
+import com.digitalmenu.api.dtos.ItemResponseDTO;
+import com.digitalmenu.api.entities.Category;
+import com.digitalmenu.api.entities.Item;
+import com.digitalmenu.api.exceptions.CategoryNotFoundException;
+import com.digitalmenu.api.exceptions.ItemNotFoundException;
+import com.digitalmenu.api.repositories.CategoryRepository;
+import com.digitalmenu.api.repositories.ItemRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

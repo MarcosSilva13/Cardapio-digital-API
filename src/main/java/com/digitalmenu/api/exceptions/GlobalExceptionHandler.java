@@ -1,4 +1,4 @@
-package com.digitalmenu.digitalmenuapi.exceptions;
+package com.digitalmenu.api.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

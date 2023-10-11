@@ -1,4 +1,4 @@
-package com.digitalmenu.digitalmenuapi.exceptions;
+package com.digitalmenu.api.exceptions;
 
 public class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException() {

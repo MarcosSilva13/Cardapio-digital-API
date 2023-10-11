@@ -1,8 +1,8 @@
-package com.digitalmenu.digitalmenuapi.controllers;
+package com.digitalmenu.api.controllers;
 
-import com.digitalmenu.digitalmenuapi.dtos.ItemRequestDTO;
-import com.digitalmenu.digitalmenuapi.dtos.ItemResponseDTO;
-import com.digitalmenu.digitalmenuapi.services.ItemService;
+import com.digitalmenu.api.dtos.ItemRequestDTO;
+import com.digitalmenu.api.dtos.ItemResponseDTO;
+import com.digitalmenu.api.services.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

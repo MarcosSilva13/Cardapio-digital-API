@@ -1,4 +1,4 @@
-package com.digitalmenu.digitalmenuapi.dtos;
+package com.digitalmenu.api.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
