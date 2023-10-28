@@ -25,7 +25,7 @@ git clone https://github.com/MarcosSilva13/Cardapio-digital-API
 ```
 - Abra a pasta Cardapio-digital-API na IDE IntelliJ e instale as dependências com o Maven.<br>
 - Abra o arquivo `DigitalmenuApplication.java` e pressione `Shift+F10` para executar, ou clique no icone ▶️ de execução.
-- A aplicação estará disponível no endereço: http://localhost:8080
+- A aplicação estará disponível no endereço: http://localhost:8080 ou http://localhost:8080/swagger-ui/index.html
 
 <h2> Endpoints - Item </h2>
 
