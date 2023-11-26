@@ -35,22 +35,20 @@ public class ItemService {
 
     @Transactional
     public ItemResponseDTO save(ItemRequestDTO requestDTO) {
-        this.checkValidCategory(requestDTO.categoryId());
-
         Item item = new Item(requestDTO);
+
+        item.setCategory(this.checkValidCategory(requestDTO.categoryId()));
 
         return new ItemResponseDTO(itemRepository.save(item));
     }
 
     @Transactional
     public ItemResponseDTO update(String id, ItemRequestDTO requestDTO) {
-        this.checkValidCategory(requestDTO.categoryId());
-
         Item item = this.find(id);
 
-        item.setCategory(new Category(requestDTO.categoryId()));
-
         BeanUtils.copyProperties(requestDTO, item);
+
+        item.setCategory(this.checkValidCategory(requestDTO.categoryId()));
 
         return new ItemResponseDTO(itemRepository.save(item));
     }
@@ -66,8 +64,8 @@ public class ItemService {
         return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item não encontrado!"));
     }
 
-    private void checkValidCategory(String categoryId) {
-        categoryRepository.findById(categoryId)
+    private Category checkValidCategory(String categoryId) {
+         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException("Categoria não encontrada."));
     }
 }
