@@ -33,6 +33,8 @@ git clone https://github.com/MarcosSilva13/Cardapio-digital-API
 
 ```bash
 /item ==> (Retorna uma lista de itens com suas informações).
+
+/item/{id} ==> (Retorna um item pelo id).
 ```
 <h3>🔹POST🔹</h3>
 
