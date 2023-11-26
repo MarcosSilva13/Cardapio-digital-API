@@ -27,10 +27,6 @@ public class Category {
         this.name = requestDTO.name();
     }
 
-    public Category(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
