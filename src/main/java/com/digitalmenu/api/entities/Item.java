@@ -44,7 +44,6 @@ public class Item {
         this.price = requestDTO.price();
         this.image = requestDTO.image();
         this.ingredients = requestDTO.ingredients();
-        this.category = new Category(requestDTO.categoryId());
     }
 
     public String getId() {
