@@ -36,6 +36,16 @@ public class ItemController {
         return ResponseEntity.ok().body(itemService.getAll());
     }
 
+    @Operation(summary = "Get One Item", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "Data not found")
+    })
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ItemResponseDTO> getOneItem(@PathVariable String id) {
+        return ResponseEntity.ok().body(itemService.getOne(id));
+    }
+
     @Operation(summary = "Save item", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),
