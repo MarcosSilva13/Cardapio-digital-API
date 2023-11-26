@@ -33,6 +33,13 @@ public class ItemService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public ItemResponseDTO getOne(String id) {
+        Item item = this.find(id);
+
+        return new ItemResponseDTO(item);
+    }
+
     @Transactional
     public ItemResponseDTO save(ItemRequestDTO requestDTO) {
         Item item = new Item(requestDTO);
