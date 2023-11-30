@@ -39,13 +39,6 @@ public class Item {
     public Item() {
     }
 
-    public Item(ItemRequestDTO requestDTO) {
-        this.name = requestDTO.name();
-        this.price = requestDTO.price();
-        this.image = requestDTO.image();
-        this.ingredients = requestDTO.ingredients();
-    }
-
     public String getId() {
         return id;
     }

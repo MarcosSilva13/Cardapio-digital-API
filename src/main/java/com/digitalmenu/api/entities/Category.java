@@ -23,10 +23,6 @@ public class Category {
     public Category() {
     }
 
-    public Category(CategoryRequestDTO requestDTO) {
-        this.name = requestDTO.name();
-    }
-
     public String getId() {
         return id;
     }
