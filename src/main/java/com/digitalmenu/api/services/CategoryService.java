@@ -4,8 +4,8 @@ import com.digitalmenu.api.dtos.CategoryRequestDTO;
 import com.digitalmenu.api.dtos.CategoryResponseDTO;
 import com.digitalmenu.api.entities.Category;
 import com.digitalmenu.api.exceptions.CategoryNotFoundException;
+import com.digitalmenu.api.mapper.CategoryMapper;
 import com.digitalmenu.api.repositories.CategoryRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +15,11 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
     @Transactional(readOnly = true)
@@ -30,18 +32,18 @@ public class CategoryService {
 
     @Transactional
     public CategoryResponseDTO save(CategoryRequestDTO requestDTO) {
-        Category category = new Category(requestDTO);
+        Category category = categoryMapper.toCategory(requestDTO);
 
-        return new CategoryResponseDTO(categoryRepository.save(category));
+        return categoryMapper.toCategoryResponseDTO(categoryRepository.save(category));
     }
 
     @Transactional
     public CategoryResponseDTO update(String id, CategoryRequestDTO requestDTO) {
         Category category = this.find(id);
 
-        BeanUtils.copyProperties(requestDTO, category);
+        categoryMapper.toUpdateCategory(requestDTO, category);
 
-        return new CategoryResponseDTO(categoryRepository.save(category));
+        return categoryMapper.toCategoryResponseDTO(categoryRepository.save(category));
     }
 
     @Transactional
