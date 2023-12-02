@@ -4,11 +4,10 @@ import com.digitalmenu.api.dtos.ItemRequestDTO;
 import com.digitalmenu.api.dtos.ItemResponseDTO;
 import com.digitalmenu.api.entities.Category;
 import com.digitalmenu.api.entities.Item;
-import com.digitalmenu.api.exceptions.CategoryNotFoundException;
-import com.digitalmenu.api.exceptions.ItemNotFoundException;
 import com.digitalmenu.api.mapper.ItemMapper;
 import com.digitalmenu.api.repositories.CategoryRepository;
 import com.digitalmenu.api.repositories.ItemRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,11 +69,11 @@ public class ItemService {
     }
 
     private Item find(String id) {
-        return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item não encontrado!"));
+        return itemRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Item não encontrado!"));
     }
 
     private Category checkValidCategory(String categoryId) {
          return categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Categoria não encontrada."));
+                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
     }
 }

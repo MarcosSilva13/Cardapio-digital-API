@@ -3,9 +3,9 @@ package com.digitalmenu.api.services;
 import com.digitalmenu.api.dtos.CategoryRequestDTO;
 import com.digitalmenu.api.dtos.CategoryResponseDTO;
 import com.digitalmenu.api.entities.Category;
-import com.digitalmenu.api.exceptions.CategoryNotFoundException;
 import com.digitalmenu.api.mapper.CategoryMapper;
 import com.digitalmenu.api.repositories.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +54,6 @@ public class CategoryService {
     }
 
     private Category find(String id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("Categoria não encontrada."));
+        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
     }
 }
