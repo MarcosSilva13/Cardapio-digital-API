@@ -57,7 +57,7 @@ class CategoryControllerTest {
 
         Assertions.assertThat(category.getBody().name()).isEqualTo(request.name());
 
-        verify(categoryService, times(1)).save(any());
+        verify(categoryService, times(1)).save(request);
     }
 
     @Test
@@ -101,7 +101,7 @@ class CategoryControllerTest {
 
         Assertions.assertThat(categoryResponseUpdated.getBody().name()).isEqualTo(requestToUpdate.name());
 
-        verify(categoryService, times(1)).update(any(),any());
+        verify(categoryService, times(1)).update(categorySaved.id(), requestToUpdate);
     }
 
     @Test
@@ -111,7 +111,7 @@ class CategoryControllerTest {
 
         var categorySaved = categoryService.save(request);
 
-        doNothing().when(categoryService).delete(anyString());
+        doNothing().when(categoryService).delete(categorySaved.id());
 
         ResponseEntity<Void> entity = categoryController.deleteCategory(categorySaved.id());
 
@@ -119,6 +119,6 @@ class CategoryControllerTest {
 
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
-        verify(categoryService, times(1)).delete(anyString());
+        verify(categoryService, times(1)).delete(categorySaved.id());
     }
 }
