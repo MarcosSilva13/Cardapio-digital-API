@@ -1,6 +1,5 @@
 package com.digitalmenu.api.entities;
 
-import com.digitalmenu.api.dtos.CategoryRequestDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,6 +20,11 @@ public class Category {
     private List<Item> items = new ArrayList<>();
 
     public Category() {
+    }
+
+    public Category(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public String getId() {

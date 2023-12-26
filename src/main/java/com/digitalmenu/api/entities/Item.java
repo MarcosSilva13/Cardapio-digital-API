@@ -39,6 +39,15 @@ public class Item {
     public Item() {
     }
 
+    public Item(String id, String name, Double price, String image, String ingredients, Category category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.ingredients = ingredients;
+        this.category = category;
+    }
+
     public String getId() {
         return id;
     }
