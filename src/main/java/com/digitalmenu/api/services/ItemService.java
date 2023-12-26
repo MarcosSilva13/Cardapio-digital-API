@@ -1,11 +1,11 @@
 package com.digitalmenu.api.services;
 
+import com.digitalmenu.api.dtos.CategoryResponseDTO;
 import com.digitalmenu.api.dtos.ItemRequestDTO;
 import com.digitalmenu.api.dtos.ItemResponseDTO;
 import com.digitalmenu.api.entities.Category;
 import com.digitalmenu.api.entities.Item;
 import com.digitalmenu.api.mapper.ItemMapper;
-import com.digitalmenu.api.repositories.CategoryRepository;
 import com.digitalmenu.api.repositories.ItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
     private final ItemMapper itemMapper;
 
-    public ItemService(ItemRepository itemRepository, CategoryRepository categoryRepository, ItemMapper itemMapper) {
+    public ItemService(ItemRepository itemRepository, CategoryService categoryService, ItemMapper itemMapper) {
         this.itemRepository = itemRepository;
-        this.categoryRepository = categoryRepository;
+        this.categoryService = categoryService;
         this.itemMapper = itemMapper;
     }
 
@@ -45,7 +45,7 @@ public class ItemService {
     public ItemResponseDTO save(ItemRequestDTO requestDTO) {
         Item item = itemMapper.toItem(requestDTO);
 
-        item.setCategory(this.checkValidCategory(requestDTO.categoryId()));
+        item.setCategory(this.findCategory(requestDTO.categoryId()));
 
         return itemMapper.toItemResponseDTO(itemRepository.save(item));
     }
@@ -56,7 +56,7 @@ public class ItemService {
 
         itemMapper.toUpdateItem(requestDTO, item);
 
-        item.setCategory(this.checkValidCategory(requestDTO.categoryId()));
+        item.setCategory(this.findCategory(requestDTO.categoryId()));
 
         return itemMapper.toItemResponseDTO(itemRepository.save(item));
     }
@@ -72,8 +72,9 @@ public class ItemService {
         return itemRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Item não encontrado!"));
     }
 
-    private Category checkValidCategory(String categoryId) {
-         return categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
+    private Category findCategory(String categoryId) {
+        CategoryResponseDTO categoryResponseDTO = categoryService.getOne(categoryId);
+
+        return new Category(categoryResponseDTO.id(),categoryResponseDTO.name());
     }
 }
