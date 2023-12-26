@@ -132,6 +132,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("Delete removes category when successful")
     void deleteRemovesCategoryWhenSuccessful() {
         when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
 
