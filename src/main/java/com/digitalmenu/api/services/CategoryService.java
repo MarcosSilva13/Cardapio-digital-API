@@ -30,6 +30,13 @@ public class CategoryService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public CategoryResponseDTO getOne(String id) {
+        Category category = this.find(id);
+
+        return categoryMapper.toCategoryResponseDTO(category);
+    }
+
     @Transactional
     public CategoryResponseDTO save(CategoryRequestDTO requestDTO) {
         Category category = categoryMapper.toCategory(requestDTO);

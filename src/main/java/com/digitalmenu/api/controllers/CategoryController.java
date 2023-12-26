@@ -34,6 +34,12 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.getAll());
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CategoryResponseDTO> getOneCategory(@PathVariable String id) {
+        return ResponseEntity.ok(categoryService.getOne(id));
+    }
+
+
     @Operation(summary = "Save category", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),
