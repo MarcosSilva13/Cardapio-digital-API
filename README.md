@@ -59,6 +59,8 @@ git clone https://github.com/MarcosSilva13/Cardapio-digital-API
 
 ```bash
 /categories ==> (Retorna uma lista de categorias com suas informações).
+
+/categories/{id} ==> (Retorna uma categoria pelo id).
 ```
 
 <h3>🔹POST🔹</h3>
