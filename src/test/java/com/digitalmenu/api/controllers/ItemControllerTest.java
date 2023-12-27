@@ -120,6 +120,8 @@ class ItemControllerTest {
         Assertions.assertThat(itemFound.getBody().category().id()).isEqualTo(itemSaved.category().id());
 
         verify(itemService, times(1)).getOne(itemSaved.id());
+
+        verify(itemService, times(1)).save(request);
     }
 
     @Test
