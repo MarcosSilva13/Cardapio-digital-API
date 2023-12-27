@@ -72,6 +72,26 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("GetOne returns CategoryResponseDTO when successful")
+    void getOneReturnsCategoryResponseDTOWhenSuccessful() {
+        when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
+
+        when(categoryMapper.toCategoryResponseDTO(any(Category.class))).thenReturn(response);
+
+        var categoryFound = categoryService.getOne(category.getId());
+
+        Assertions.assertThat(categoryFound).isNotNull();
+
+        Assertions.assertThat(categoryFound.id()).isEqualTo(category.getId());
+
+        Assertions.assertThat(categoryFound.name()).isEqualTo(category.getName());
+
+        verify(categoryRepository, times(1)).findById(category.getId());
+
+        verify(categoryMapper, times(1)).toCategoryResponseDTO(any(Category.class));
+    }
+
+    @Test
     @DisplayName("Save returns CategoryResponseDTOWhenSuccessful")
     void saveReturnsCategoryResponseDTOWhenSuccessful() {
         when(categoryRepository.save(any(Category.class))).thenReturn(category);
@@ -94,33 +114,29 @@ class CategoryServiceTest {
     @Test
     @DisplayName("Update returns CategoryResponseDTO when successful")
     void updateReturnsCategoryResponseDTOWhenSuccessful() {
-        var categoryToUpdate = new Category();
-        categoryToUpdate.setId("abcd");
-        categoryToUpdate.setName("Categoria 1");
+        when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
+
+        when(categoryRepository.save(any(Category.class))).thenReturn(category);
 
         var requestDTO = new CategoryRequestDTO("Categoria 2");
 
-        when(categoryRepository.findById(categoryToUpdate.getId())).thenReturn(Optional.of(categoryToUpdate));
-
-        when(categoryRepository.save(any(Category.class))).thenReturn(categoryToUpdate);
-
-        var responseDTO = new CategoryResponseDTO(categoryToUpdate.getId(), "Categoria 2");
+        var responseDTO = new CategoryResponseDTO(category.getId(), "Categoria 2");
 
         when(categoryMapper.toCategoryResponseDTO(any(Category.class))).thenReturn(responseDTO);
 
-        categoryToUpdate.setName("Categoria 2");
-
-        var categoryResponseDTO = categoryService.update(categoryToUpdate.getId(), requestDTO);
+        var categoryResponseDTO = categoryService.update(category.getId(), requestDTO);
 
         Assertions.assertThat(categoryResponseDTO).isNotNull();
 
-        Assertions.assertThat(categoryResponseDTO.name()).isEqualTo(categoryToUpdate.getName());
+        Assertions.assertThat(categoryResponseDTO.id()).isEqualTo(responseDTO.id());
 
-        verify(categoryRepository, times(1)).save(categoryToUpdate);
+        Assertions.assertThat(categoryResponseDTO.name()).isEqualTo(responseDTO.name());
 
-        verify(categoryRepository, times(1)).findById(categoryToUpdate.getId());
+        verify(categoryRepository, times(1)).save(any(Category.class));
 
-        verify(categoryMapper, times(1)).toCategoryResponseDTO(categoryToUpdate);
+        verify(categoryRepository, times(1)).findById(category.getId());
+
+        verify(categoryMapper, times(1)).toCategoryResponseDTO(any(Category.class));
     }
 
     @Test
