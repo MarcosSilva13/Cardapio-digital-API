@@ -77,6 +77,30 @@ class CategoryControllerTest {
     }
 
     @Test
+    @DisplayName("GetOneCategory returns CategoryResponseDTO when successful")
+    void getOneCategoryReturnsCategoryResponseDTOWhenSuccessful() {
+        when(categoryService.save(request)).thenReturn(response);
+
+        var categorySaved = categoryService.save(request);
+
+        when(categoryService.getOne(categorySaved.id())).thenReturn(response);
+
+        ResponseEntity<CategoryResponseDTO> categoryFound = categoryController.getOneCategory(categorySaved.id());
+
+        Assertions.assertThat(categoryFound).isNotNull();
+
+        Assertions.assertThat(categoryFound.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        Assertions.assertThat(categoryFound.getBody().id()).isEqualTo(categorySaved.id());
+
+        Assertions.assertThat(categoryFound.getBody().name()).isEqualTo(categorySaved.name());
+
+        verify(categoryService, times(1)).save(request);
+
+        verify(categoryService, times(1)).getOne(categorySaved.id());
+    }
+
+    @Test
     @DisplayName("UpdateCategory return CategoryResponseDTO when successful")
     void updateCategoryReturnCategoryResponseDTOWhenSuccessful() {
         when(categoryService.save(request)).thenReturn(response);
